@@ -36,14 +36,14 @@ hippo = brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 5
 #users
   #default
 george = User.create!(name: "George",
-                      street_address: "123 lane",
+                      address: "123 lane",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
                       email: "george@example.com",
                       password_digest: "test")
 jimmmy = User.create!(name: "Jimmy",
-                      street_address: "123 lane",
+                      address: "123 lane",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
