@@ -34,10 +34,10 @@ giant = megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 5
 hippo = brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
 
 # oders
-order_1 = @merchant_user.orders.create!(status: 'pending')
-order_2 = @merchant_user.orders.create!(status: 'pending')
-order_3 = @merchant_user.orders.create!(status: 'pending')
-order_4 = @merchant_user.orders.create!(status: 'pending')
+order_1 = merchant_user.orders.create!(status: 'pending')
+order_2 = merchant_user.orders.create!(status: 'pending')
+order_3 = merchant_user.orders.create!(status: 'pending')
+order_4 = merchant_user.orders.create!(status: 'pending')
 
 # order items
 order_item_1 = order_1.order_items.create!(item: orge, price: orge.price, quantity: 3, fulfilled: false)
@@ -63,7 +63,7 @@ user_1 = User.create!(name: "George",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email_address: "Georgeexample.com",
+                      email_address: "george@example.com",
                       password: "superEasyPZ")
   #merchant
 user_2 = User.create!(name: "Hope",
@@ -71,7 +71,7 @@ user_2 = User.create!(name: "Hope",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
-                      email_address: "Hopeexample.com",
+                      email_address: "hope@example.com",
                       password: "superEasyPZ",
                       role: 1,
                       merchant_id: metroid_shop.id)
@@ -81,20 +81,6 @@ user_3 = User.create!(name: "Todd",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email_address: "Toddexample.com",
+                      email_address: "todd@example.com",
                       password: "superEasyPZ",
                       role: 2)
-
-#orders
-order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user_1.id)
-
-order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "fulfilled")
-order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3, status: "fulfilled")
-order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3, status: "fulfilled")
-
-order_2 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user_1.id)
-
-order_2.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "fulfilled")
-order_2.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3, status: "fulfilled")
-
-order_2.item_orders.create!(item: dog_bone, price: dog_bone.price, quantity: 3)
