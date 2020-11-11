@@ -51,7 +51,7 @@ jimmmy = User.create!(name: "Jimmy",
                       password_digest: "test")
   #merchant
 hope = User.create!(name: "Hope",
-                      street_address: "456 Space st",
+                      address: "456 Space st",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
@@ -60,7 +60,7 @@ hope = User.create!(name: "Hope",
                       role: 1,
                       merchant_id: metroid_shop.id)
 margret = User.create!(name: "Margret",
-                      street_address: "456 Space st",
+                      address: "456 Space st",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
@@ -70,7 +70,7 @@ margret = User.create!(name: "Margret",
                       merchant_id: megan.id)
   #admin
 todd = User.create!(name: "Todd",
-                      street_address: "789 Main st",
+                      address: "789 Main st",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
