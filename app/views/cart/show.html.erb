@@ -17,9 +17,10 @@
       <% elsif item.discounts.empty? %>
         <p>There are no discounts available at this moment</p>
       <% else %>
-      <% item.discounts.each do |discount| %>
-        <p>Available: <%= discount.description %></p>
-      <% end %>
+        <p><strong>Merchant Discount(s) Available:</strong></p>
+        <% item.discounts.each do |discount| %>
+          <p><%= discount.description %></p>
+        <% end %>
       <% end %>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
