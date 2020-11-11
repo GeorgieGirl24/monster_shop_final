@@ -67,7 +67,6 @@ RSpec.describe Cart do
       @cart_3.add_item(@hippo.id.to_s)
       @cart_3.add_item(@hippo.id.to_s)
       expect(@cart_3.grand_total).to eq(325)
-      # expect(@cart_1.grand_total).to eq(120)
     end
 
     it '.count_of()' do
@@ -89,14 +88,6 @@ RSpec.describe Cart do
       @cart_1.less_item(@giant.id.to_s)
 
       expect(@cart_1.count_of(@giant.id)).to eq(1)
-    end
-
-    it '.grand_total' do
-      expect(@cart_2.contents).to eq({@hippo.id.to_s => 3})
-      expect(@cart_2.grand_total).to eq(150)
-      @cart_2.add_item(@hippo.id.to_s)
-      @cart_2.add_item(@hippo.id.to_s)
-      expect(@cart_2.grand_total).to eq(237.5)
     end
 
     it '.discounted_price' do
