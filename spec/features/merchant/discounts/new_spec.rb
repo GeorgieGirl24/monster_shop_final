@@ -77,6 +77,14 @@ RSpec.describe 'Discounts Creation' do
 
     end
 
+    it 'can go back to Discounts Index Page from the Discount New' do
+      visit '/merchant/discounts/new'
+
+      expect(page).to have_link('My Discounts')
+      click_link 'My Discounts'
+      expect(current_path).to eq('/merchant/discounts')
+    end
+
     it 'can have more than one discount enabled' do
       visit '/merchant/discounts'
 
