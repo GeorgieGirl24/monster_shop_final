@@ -1,11 +1,13 @@
 class Cart
-  include ::CartConcern
-
-  attr_reader :contents, :saved_discounts, :current_discount
+  attr_reader :contents, :saved_discounts, :subtotal_discount
 
   def initialize(contents)
     @contents = contents || {}
     @contents.default = 0
+  end
+
+  def find_item(item_id)
+     item = Item.find(item_id)
   end
 
   def add_item(item_id)
@@ -29,15 +31,30 @@ class Cart
   def grand_total
     grand_total = 0.0
     @saved_discounts = 0.0
+
     @contents.each do |item_id, quantity|
-      if empty_merchant_discount?(item_id) && discount_criteria_met?(find_item(item_id), quantity)
-        new_item_total = find_item(item_id).price * quantity
-        grand_total += new_cart_discounts(@current_discount, new_item_total)
-      else
-        grand_total += find_item(item_id).price * quantity
+      item = Item.find(item_id)
+      grand_total += discounted_price(item) * quantity
+      if discounted_price(item) < item.price
+        @saved_discounts = @subtotal_discount * quantity
       end
     end
     grand_total
+  end
+
+  def discounted_price(item)
+    @subtotal_discount = 0.0
+    if applied_discount(item)
+      new_price = item.price * (100 - applied_discount(item)) * 0.01
+      @subtotal_discount = item.price - new_price
+      return new_price
+    else
+      item.price
+    end
+  end
+
+  def applied_discount(item)
+    item.merchant.discounts.where('? >= quantity', count_of(item.id)).order(percent: :desc).limit(1).pluck(:percent).first
   end
 
   def count_of(item_id)
@@ -50,40 +67,5 @@ class Cart
 
   def limit_reached?(item_id)
     count_of(item_id) == find_item(item_id).inventory
-  end
-
-  def show_discounts(item_id)
-    return_message = ""
-    if find_merchant(item_id).discounts.empty?
-      return_message = 'There are no discounts available at this moment'
-    else
-      find_all_discounts(item_id).each do |discount|
-        quantity = @contents[find_item(item_id).id.to_s] # this needs to be a string because the keys are strings
-        if discount_criteria_met?(find_item(item_id), quantity)
-          return_message = 'Wahoo! You qualify for a bulk discount!'
-        else
-          break return_message = discount.description
-        end
-      end
-    end
-    return_message
-  end
-
-  def discount_criteria_met?(item, quantity)
-    find_all_discounts(item.id).each do |discount|
-      if quantity >= discount.quantity
-        all_available_discounts(item, quantity)
-        return true
-      else
-        return false
-      end
-    end
-  end
-
-  def new_cart_discounts(discount, sub_total)
-    # percentage(discount)
-    new_total = sub_total * percentage(discount)
-    @saved_discounts += sub_total - new_total
-    new_total
   end
 end
