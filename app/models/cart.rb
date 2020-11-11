@@ -54,7 +54,12 @@ class Cart
   end
 
   def applied_discount(item)
-    item.merchant.discounts.where('? >= quantity', count_of(item.id)).order(percent: :desc).limit(1).pluck(:percent).first
+    item.merchant.discounts
+    .where('? >= quantity', count_of(item.id))
+    .order(percent: :desc)
+    .limit(1)
+    .pluck(:percent)
+    .first
   end
 
   def count_of(item_id)
