@@ -69,12 +69,12 @@ elvie = User.create!(name: "Elvie",
                       role: 1,
                       merchant_id: megan.id)
   #admin
-todd = User.create!(name: "Todd",
+vip = User.create!(name: "VIP",
                       address: "789 Main st",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email: "todd@example.com",
+                      email: "vip@example.com",
                       password_digest: "test",
                       role: 2)
 
