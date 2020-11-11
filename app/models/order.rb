@@ -6,7 +6,21 @@ class Order < ApplicationRecord
   enum status: ['pending', 'packaged', 'shipped', 'cancelled']
 
   def grand_total
-    order_items.sum('price * quantity')
+    grand_total = 0.0
+    total = 0.0
+    order_items.pluck(:item_id).each do |item_id|
+      item = find_item(item_id)
+      quantity = order_items.where(item: item).pluck(:quantity)[0]
+      # discounts = item.merchant.discounts
+      if empty_merchant_discount?(item_id) && discount_criteria_met?(find_item(item_id), quantity)
+        total += (item.price) * (percentage(all_available_discounts(item, quantity)))
+        grand_total = total * quantity
+      else
+        grand_total += item.price * quantity
+         # grand_total += Item.find(item_id).price * quantity
+      end
+    end
+    grand_total
   end
 
   def count_of_items
