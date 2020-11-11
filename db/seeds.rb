@@ -35,19 +35,19 @@ hippo = brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 5
 
 #users
   #default
-george = User.create!(name: "George",
+jeffery = User.create!(name: "Jeffery",
                       address: "123 lane",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email: "george@example.com",
+                      email: "jeffery@example.com",
                       password_digest: "test")
-jimmmy = User.create!(name: "Jimmy",
+manny = User.create!(name: "Manny",
                       address: "123 lane",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email: "jimmy@example.com",
+                      email: "manny@example.com",
                       password_digest: "test")
   #merchant
 hope = User.create!(name: "Hope",
@@ -59,12 +59,12 @@ hope = User.create!(name: "Hope",
                       password_digest: "test",
                       role: 1,
                       merchant_id: metroid_shop.id)
-margret = User.create!(name: "Margret",
+elvie = User.create!(name: "Elvie",
                       address: "456 Space st",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
-                      email: "margret@example.com",
+                      email: "elvie@example.com",
                       password_digest: "test",
                       role: 1,
                       merchant_id: megan.id)
