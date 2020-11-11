@@ -59,7 +59,7 @@ RSpec.describe 'Discount Cart Show Page' do
 
       expect(page).to have_content('Total: $307.50')
       expect(page).to_not have_content('Total: $320.00')
-      expect(page).to have_content('Wahoo! You qualify for a bulk discount!')
+      expect(page).to have_content("Merchant Discount: 5% off was applied to your order!")
       expect(page).to have_content('Total Savings: $12.50')
     end
 
@@ -96,7 +96,8 @@ RSpec.describe 'Discount Cart Show Page' do
       end
 
       expect(page).to have_content('Total: $270.00')
-      expect(page).to have_content('Buy 5 items, get 5% off')
+      expect(page).to have_content("Available: #{@megan_discount_1.description}")
+      expect(page).to have_content("Available: #{@megan_discount_2.description}")
       within "#item-#{@giant.id}" do
         expect(page).to have_content('Quantity: 4')
       end
@@ -115,7 +116,7 @@ RSpec.describe 'Discount Cart Show Page' do
       end
 
       expect(page).to have_content('Total: $70.00')
-      expect(page).to have_content('There are no discounts available at this moment')
+      expect(page).to have_content("There are no discounts available at this moment")
     end
 
     it 'can only have one (the biggest) discount apply to items, if more than one discount applies to the items in the cart' do
@@ -132,7 +133,7 @@ RSpec.describe 'Discount Cart Show Page' do
 
       expect(page).to have_content('Total: $210.00')
       expect(page).to_not have_content('Total: $225.00')
-      expect(page).to have_content('Wahoo! You qualify for a bulk discount!')
+      expect(page).to have_content('Merchant Discount: 30% off was applied to your order!')
       expect(page).to have_content('Total Savings: $90.00')
     end
   end
