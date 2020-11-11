@@ -55,7 +55,7 @@ hope = User.create!(name: "Hope",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
-                      email: "hope@example.com",
+                      email: "HOPE@example.com",
                       password_digest: "test",
                       role: 1,
                       merchant_id: metroid_shop.id)
