@@ -5,12 +5,17 @@ RSpec.describe Cart do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+      @metroid_shop = Merchant.create(name: "Hope's Metroid Shop", address: '125 XR42 St.', city: 'Denver', state: 'CO', zip: 80210)
+
+      @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 100)
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 12 )
+      @rock = @metroid_shop.items.create!(name: 'Rocks', description: "I'm a Rock!", price: 35, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 10 )
+
       @discount = @brian.discounts.create!(description: 'Buy 5 items, get 5% off', quantity: 5, percent: 5)
       @discount_1 = @brian.discounts.create!(description: 'Buy 10 items, get 35% off', quantity: 10, percent: 35)
       @discount_2 = @brian.discounts.create!(description: 'Buy 15 items, get 75% off', quantity: 15, percent: 75)
+      @discount_4 = @megan.discounts.create!(description: 'Buy 5 items, get 50% off', quantity: 5, percent: 50)
 
       @cart_1 = Cart.new({
         @ogre.id.to_s => 1,
@@ -20,6 +25,13 @@ RSpec.describe Cart do
         @hippo.id.to_s => 3
         })
       @cart_3 = Cart.new({
+        @hippo.id.to_s => 6
+        })
+      @cart_4 = Cart.new({
+        @rock.id.to_s => 3
+        })
+      @cart_5 = Cart.new({
+        @ogre.id.to_s => 7,
         @hippo.id.to_s => 6
         })
       @saved_discounts = 0.0
@@ -62,7 +74,6 @@ RSpec.describe Cart do
       @cart_3.add_item(@hippo.id.to_s)
       @cart_3.add_item(@hippo.id.to_s)
       expect(@cart_3.grand_total).to eq(325)
-      # expect(@cart_1.grand_total).to eq(120)
     end
 
     it '.count_of()' do
@@ -86,40 +97,13 @@ RSpec.describe Cart do
       expect(@cart_1.count_of(@giant.id)).to eq(1)
     end
 
-    xit '.new_cart_discounts()' do
-      # expect(@saved_discounts).to eq(0.0)
-      # expect(@discount).to eq(@discount)
-      # expect(@sub_total).to eq(300.0)
-      # expect(@new_total).to eq(@sub_total * percentage(@discount))
-      # cant see percentage in this test and I can't get the @saved_discounts to set to not nil
-      # binding.pry
-      expect(@cart_3.new_cart_discounts(@discount, 300.0)).to eq(237.5)
+    it '.discounted_price' do
+      expect(@cart_5.discounted_price(@ogre)).to eq(10)
+      expect(@cart_4.discounted_price(@rock)).to eq(35)
     end
 
-    # updated
-    it '.grand_total' do
-      expect(@cart_2.contents).to eq({@hippo.id.to_s => 3})
-      expect(@cart_2.grand_total).to eq(150)
-      @cart_2.add_item(@hippo.id.to_s)
-      @cart_2.add_item(@hippo.id.to_s)
-      expect(@cart_2.grand_total).to eq(237.5)
-    end
-
-    it '.show_discounts()' do
-      expect(@cart_2.show_discounts(@hippo.id)).to eq('Buy 5 items, get 5% off')
-      expect(@cart_1.show_discounts(@ogre.id)).to eq('There are no discounts available at this moment')
-
-      @cart_2.add_item(@hippo.id.to_s)
-      @cart_2.add_item(@hippo.id.to_s)
-      expect(@cart_2.show_discounts(@hippo.id)).to eq('Wahoo! You qualify for a bulk discount!')
-    end
-
-    it '.discount_criteria_met?()' do
-      expect(@cart_2.discount_criteria_met?(@hippo, 7)).to eq(true)
-    end
-
-    it '#find_merchant' do
-      expect(@cart_3.find_merchant(@ogre.id)).to eq(@megan)
+    it '.applied_discount()' do
+      expect(@cart_5.applied_discount(@ogre)).to eq(50)
     end
   end
 end

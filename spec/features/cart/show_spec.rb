@@ -19,7 +19,6 @@ RSpec.describe 'Cart Show Page' do
         click_button 'Add to Cart'
         visit item_path(@hippo)
         click_button 'Add to Cart'
-
         visit '/cart'
 
         expect(page).to have_content("Total: #{number_to_currency((@ogre.price * 1) + (@hippo.price * 2))}")
