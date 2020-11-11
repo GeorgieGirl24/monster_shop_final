@@ -18,7 +18,7 @@ tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never po
 
 #dog_shop items
 pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
-dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active:false, inventory: 21)
 
 #metroid_shop items
 missiles = metroid_shop.items.create(name: "Missiles", description: "Access to new areas!", price: 10, image: "https://i.ibb.co/HVNNc7V/item-missile.gif", inventory: 32)
@@ -58,29 +58,45 @@ brian_discount_5 = brian.discounts.create!(description: 'Buy 6 items, get 30% of
 
 #users
   #default
-user_1 = User.create!(name: "George",
+george = User.create!(name: "George",
                       street_address: "123 lane",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
                       email: "george@example.com",
-                      password_digest: "superEasyPZ")
+                      password_digest: "test")
+jimmmy = User.create!(name: "Jimmy",
+                      street_address: "123 lane",
+                      city: "Denver",
+                      state: "CO",
+                      zip: 80111,
+                      email: "jimmy@example.com",
+                      password_digest: "test")
   #merchant
-user_2 = User.create!(name: "Hope",
+hope = User.create!(name: "Hope",
                       street_address: "456 Space st",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
                       email: "hope@example.com",
-                      password_digest: "superEasyPZ",
+                      password_digest: "test",
                       role: 1,
                       merchant_id: metroid_shop.id)
+margret = User.create!(name: "Margret",
+                      street_address: "456 Space st",
+                      city: "Space",
+                      state: "CO",
+                      zip: 80111,
+                      email: "hope@example.com",
+                      password_digest: "test",
+                      role: 1,
+                      merchant_id: megan.id)
   #admin
-user_3 = User.create!(name: "Todd",
+todd = User.create!(name: "Todd",
                       street_address: "789 Main st",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
                       email: "todd@example.com",
-                      password_digest: "superEasyPZ",
+                      password_digest: "test",
                       role: 2)
