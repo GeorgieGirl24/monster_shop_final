@@ -63,16 +63,16 @@ user_1 = User.create!(name: "George",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email_address: "george@example.com",
-                      password: "superEasyPZ")
+                      email: "george@example.com",
+                      password_digest: "superEasyPZ")
   #merchant
 user_2 = User.create!(name: "Hope",
                       street_address: "456 Space st",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
-                      email_address: "hope@example.com",
-                      password: "superEasyPZ",
+                      email: "hope@example.com",
+                      password_digest: "superEasyPZ",
                       role: 1,
                       merchant_id: metroid_shop.id)
   #admin
@@ -81,6 +81,6 @@ user_3 = User.create!(name: "Todd",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email_address: "todd@example.com",
-                      password: "superEasyPZ",
+                      email: "todd@example.com",
+                      password_digest: "superEasyPZ",
                       role: 2)
