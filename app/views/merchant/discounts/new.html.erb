@@ -9,7 +9,7 @@
   <%= number_field_tag :quantity, nil, min: 1 %>
 
   <%= label_tag 'Percent Off: '%>
-  <%= number_field_tag :percent, nil, max: 100 %>
+  <%= number_field_tag :percent, nil, min: 1, max: 100 %>
 
   <%= submit_tag 'Submit Discount' %>
 <% end %>
