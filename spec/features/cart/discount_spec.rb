@@ -92,8 +92,9 @@ RSpec.describe 'Discount Cart Show Page' do
       end
 
       expect(page).to have_content('Total: $270.00')
-      expect(page).to have_content("Available: #{@megan_discount_1.description}")
-      expect(page).to have_content("Available: #{@megan_discount_2.description}")
+      expect(page).to have_content('Merchant Discount(s) Available:')
+      expect(page).to have_content(@megan_discount_1.description)
+      expect(page).to have_content(@megan_discount_2.description)
       within "#item-#{@giant.id}" do
         expect(page).to have_content('Quantity: 4')
       end
