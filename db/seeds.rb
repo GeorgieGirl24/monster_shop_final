@@ -64,7 +64,7 @@ margret = User.create!(name: "Margret",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
-                      email: "hope@example.com",
+                      email: "margret@example.com",
                       password_digest: "test",
                       role: 1,
                       merchant_id: megan.id)
