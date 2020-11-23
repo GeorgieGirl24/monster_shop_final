@@ -54,6 +54,7 @@ class Cart
   end
 
   def applied_discount(item)
+    # item.discounts
     item.merchant.discounts
     .where('? >= quantity', count_of(item.id))
     .order(percent: :desc)
